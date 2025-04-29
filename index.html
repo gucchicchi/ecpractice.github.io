@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Glow Goods - 仮想ECサイト</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- ↓ GTMのコードをここに貼り付ける -->
+</head>
+<body>
+  <header>
+    <h1>Glow Goods</h1>
+    <nav>
+      <a href="#">ホーム</a>
+      <a href="#">商品一覧</a>
+    </nav>
+  </header>
+
+  <main>
+    <section>
+      <h2>おすすめ商品</h2>
+      <div class="product" data-product-id="001">
+        <img src="https://via.placeholder.com/200" alt="トートバッグ">
+        <h3>エコ素材のトートバッグ</h3>
+        <p>¥2,800</p>
+        <button class="add-to-cart">カートに入れる</button>
+      </div>
+
+      <div class="product" data-product-id="002">
+        <img src="https://via.placeholder.com/200" alt="マグカップ">
+        <h3>オリジナルマグカップ</h3>
+        <p>¥1,500</p>
+        <button class="add-to-cart">カートに入れる</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>※このサイトはタグ計測練習用の仮想ECサイトです。実際には商品は販売していません。</p>
+  </footer>
+
+  <!-- ↓ GTMのnoscriptタグをここに貼り付ける -->
+
+  <!-- ↓ 任意でイベントログ確認用のJS（GTM連携の補助） -->
+  <script>
+    document.querySelectorAll('.add-to-cart').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const product = e.target.closest('.product');
+        const productId = product.dataset.productId;
+        const productName = product.querySelector('h3').textContent;
+        const productPrice = product.querySelector('p').textContent;
+
+        console.log("カートに追加:", { productId, productName, productPrice });
+
+        // 任意：データレイヤーにイベントをpush（GTMで拾える）
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          event: "add_to_cart",
+          product_id: productId,
+          product_name: productName,
+          product_price: productPrice
+        });
+      });
+    });
+  </script>
+</body>
+</html>
